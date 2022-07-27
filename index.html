@@ -131,6 +131,11 @@
               optionElement.classList.add("animate__shakeX");
             });
           }
+        } else {
+          Object.keys(pollState.options).forEach((option) => {
+            const optionElement = document.getElementById(`option-${option}`);
+            optionElement.className = "option";
+          });
         }
       }
 
@@ -204,6 +209,17 @@
         if (message.match(/^!pollstop/g) && pollState.active) {
           pollState.active = false;
           updatePollDisplay(true);
+
+          return;
+        }
+
+        if (
+          message.match(/^!pollresume/g) &&
+          pollState.visible &&
+          !pollState.active
+        ) {
+          pollState.active = true;
+          updatePollDisplay(false);
 
           return;
         }
