@@ -70,7 +70,9 @@
       function updatePollDisplay(finished = false) {
         const container = document.querySelector(".container");
 
-        const voteCount = Object.values(pollState.userVotes).length;
+        const voteCount = Object.values(pollState.userVotes).filter(
+          (vote) => vote !== 0
+        ).length;
 
         const pointsObject = Object.values(pollState.userVotes).reduce(
           (result, userVote) => {
