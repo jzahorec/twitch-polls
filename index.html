@@ -96,7 +96,9 @@
               : Math.round(((pointsObject[key] || 0) / voteCount) * 100);
 
           progressBar.style.width = percentage + "%";
-          percentageElement.innerHTML = `${percentage}%`;
+          percentageElement.innerHTML = `${percentage}% (${
+            pointsObject[key] || 0
+          })`;
         });
 
         if (finished) {
