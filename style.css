@@ -59,6 +59,11 @@ body {
   background-color: rgba(0, 0, 0, 0.99);
 }
 
+.poll-title {
+  font-size: var(--size-xl);
+  margin-bottom: var(--size-m);
+}
+
 .option + .option {
   margin-top: var(--size-m);
 }

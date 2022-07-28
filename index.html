@@ -14,7 +14,10 @@
     <script>
       const POLL_SIMPLE_DETECTION_PATTERN = /^!poll$/;
       const POLL_NUMBER_DETECTION_PATTERN = /^!poll \d$/;
-      const POLL_QUOTED_PARAMETER_DETECTION_PATTERN = /^!poll( "[^"]+")+$/;
+      const POLL_QUOTED_PARAMETER_DETECTION_PATTERN =
+        /^!poll( "[^"]+")( "[^"]+")+$/;
+      const POLL_QUOTED_PARAMETER_TITLE_DETECTION_PATTERN =
+        /^!pollt( "[^"]+"){2}( "[^"]+")+$/;
       const POLL_QUOTED_PARAMETER_EXTRACTION_PATTERN = /"([^"]+)"/g;
       const POLL_POSITION_DETECTION_PATTERN =
         /^!poll_tl$|!poll_tr$|!poll_br$|!poll_bl$/;
@@ -40,6 +43,11 @@
         const pollElement = document.querySelector(".poll");
 
         pollElement.style = "visibility: visible;";
+
+        const titleElement = document.createElement("h1");
+        titleElement.className = "poll-title";
+        titleElement.innerHTML = pollState.title;
+        pollElement.append(titleElement);
 
         Object.entries(pollState.options).forEach(([key, value]) => {
           const option = document.createElement("div");
@@ -174,13 +182,15 @@
         if (
           (POLL_SIMPLE_DETECTION_PATTERN.test(message) ||
             POLL_NUMBER_DETECTION_PATTERN.test(message) ||
-            POLL_QUOTED_PARAMETER_DETECTION_PATTERN.test(message)) &&
+            POLL_QUOTED_PARAMETER_DETECTION_PATTERN.test(message) ||
+            POLL_QUOTED_PARAMETER_TITLE_DETECTION_PATTERN.test(message)) &&
           !pollState.visible &&
           !pollState.active
         ) {
           pollState.active = true;
           pollState.userVotes = {};
           pollState.options = {};
+          pollState.title = "Poll";
 
           if (POLL_SIMPLE_DETECTION_PATTERN.test(message)) {
             for (let index = 1; index <= 2; index++) {
@@ -198,6 +208,20 @@
             const options = message.match(
               POLL_QUOTED_PARAMETER_EXTRACTION_PATTERN
             );
+
+            options.forEach((option, index) => {
+              const cleanOption = option.replaceAll('"', "");
+              pollState.options[index + 1] = cleanOption;
+            });
+          } else if (
+            POLL_QUOTED_PARAMETER_TITLE_DETECTION_PATTERN.test(message)
+          ) {
+            const options = message.match(
+              POLL_QUOTED_PARAMETER_EXTRACTION_PATTERN
+            );
+
+            const title = options.shift();
+            pollState.title = title;
 
             options.forEach((option, index) => {
               const cleanOption = option.replaceAll('"', "");
