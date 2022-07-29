@@ -18,6 +18,8 @@
         /^!poll( "[^"]+")( "[^"]+")+$/;
       const POLL_QUOTED_PARAMETER_TITLE_DETECTION_PATTERN =
         /^!pollt( "[^"]+"){2}( "[^"]+")+$/;
+      const POLL_TITLE_DETECTION_PATTERN = /^!polltitle( "[^"]+")$/;
+
       const POLL_QUOTED_PARAMETER_EXTRACTION_PATTERN = /"([^"]+)"/g;
       const POLL_POSITION_DETECTION_PATTERN =
         /^!poll_tl$|!poll_tr$|!poll_br$|!poll_bl$/;
@@ -45,6 +47,7 @@
         pollElement.style = "visibility: visible;";
 
         const titleElement = document.createElement("h1");
+        titleElement.id = "poll-title";
         titleElement.className = "poll-title";
         titleElement.innerHTML = pollState.title;
         pollElement.append(titleElement);
@@ -76,7 +79,8 @@
       }
 
       function updatePollDisplay(finished = false) {
-        const container = document.querySelector(".container");
+        const titleElement = document.getElementById("poll-title");
+        titleElement.innerHTML = pollState.title;
 
         const voteCount = Object.values(pollState.userVotes).filter(
           (vote) => vote !== 0
@@ -230,6 +234,19 @@
           }
 
           createPollDisplay();
+
+          return;
+        }
+
+        if (POLL_TITLE_DETECTION_PATTERN.test(message) && pollState.active) {
+          const options = message.match(
+            POLL_QUOTED_PARAMETER_EXTRACTION_PATTERN
+          );
+
+          const title = options.shift();
+          pollState.title = title;
+
+          updatePollDisplay();
 
           return;
         }
