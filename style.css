@@ -61,7 +61,7 @@ body {
 
 .poll-title {
   font-size: var(--size-xl);
-  margin-bottom: var(--size-m);
+  margin-bottom: var(--size-xl);
 }
 
 .option + .option {
