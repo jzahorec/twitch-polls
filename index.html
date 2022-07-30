@@ -235,7 +235,7 @@
               POLL_QUOTED_PARAMETER_EXTRACTION_PATTERN
             );
 
-            const title = options.shift();
+            const title = options.shift().replaceAll('"', "");
             pollState.title = title;
 
             options.forEach((option, index) => {
