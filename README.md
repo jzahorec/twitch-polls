@@ -41,17 +41,27 @@ The chat commands to start and edit polls are only available to the broadcaster.
 
 There are different ways to start a poll:
 
-`!poll`: Starts a poll with just two options named 1 and 2.
+`!poll`: starts a poll with just two options named 1 and 2.
 
-<img width="1920" alt="Bildschirmfoto 2022-07-27 um 16 05 20" src="https://user-images.githubusercontent.com/94025590/181267723-34685904-80cb-4142-9816-8498542f1dd3.png">
+<img width="1920" alt="Bildschirmfoto 2022-07-30 um 22 08 15" src="https://user-images.githubusercontent.com/94025590/181994769-7bb71d57-cb0a-4d26-91c1-7828597e3489.png">
 
-`!poll 3`: Starts a poll with three options named 1, 2, 3. (Up to 9 options are supported).
+`!poll 3`: starts a poll with three options named 1, 2, 3. (Up to 9 options are supported).
 
-<img width="1920" alt="Bildschirmfoto 2022-07-27 um 16 05 27" src="https://user-images.githubusercontent.com/94025590/181267759-91f5a2ae-6dc1-45ad-9539-7f6d1c55ae7d.png">
+<img width="1920" alt="Bildschirmfoto 2022-07-30 um 22 08 42" src="https://user-images.githubusercontent.com/94025590/181994778-fa08a89b-84e2-494e-a918-37866663bbc5.png">
 
-`!poll "do you like cats?" "do you like dogs?" "do you like both?"`: Starts a poll with three named options. These names will appear next ot the number.
+`!poll "what kind of person are you? "cat person?" "dog person?" "why not both?"`: starts a poll with a title (the first text) and three named options and a title (everything after the first text). These option names will appear next to the option numbers.
 
-<img width="1920" alt="Bildschirmfoto 2022-07-27 um 16 05 36" src="https://user-images.githubusercontent.com/94025590/181267836-5ab9a6f0-f8ce-49e7-b1bd-ffda8ec0d487.png">
+<img width="1920" alt="Bildschirmfoto 2022-07-30 um 22 09 59" src="https://user-images.githubusercontent.com/94025590/181994811-878d4d6b-5c9d-487e-b34f-63c2d6cff14c.png">
+
+`!poll "" "cat person?" "dog person?" "why not both?"`: leaves out the title (which will default to "Poll") and supplies the same three options:
+
+<img width="1920" alt="Bildschirmfoto 2022-07-30 um 22 10 20" src="https://user-images.githubusercontent.com/94025590/181994877-82a22432-5799-4ffd-9995-d29a1fed0f82.png">
+
+### Changing the Poll Title
+
+`!polltitle "New Poll Title"`
+
+This will change the poll title of the currently active poll to "New Poll Title".
 
 ### Stopping a Poll
 
@@ -59,9 +69,9 @@ There are different ways to start a poll:
 
 This will stop the currently active poll in its current state and highlights the winning option. If several options have a draw they will be highlighted together.
 
-<img width="1920" alt="Bildschirmfoto 2022-07-27 um 16 04 24" src="https://user-images.githubusercontent.com/94025590/181267903-569ed8df-5fa8-443b-bc1d-b478680a9451.png">
+<img width="1920" alt="Bildschirmfoto 2022-07-30 um 22 10 43" src="https://user-images.githubusercontent.com/94025590/181994884-358fb293-2daa-4406-93f9-efd0bb93ab3a.png">
+<img width="1920" alt="Bildschirmfoto 2022-07-30 um 22 11 21" src="https://user-images.githubusercontent.com/94025590/181994887-30a27146-d739-4b77-8be2-e4b52dc968ee.png">
 
-<img width="1920" alt="Bildschirmfoto 2022-07-27 um 16 05 56" src="https://user-images.githubusercontent.com/94025590/181267936-d3dbf32c-632c-47f9-9424-4c36c8f3ae8b.png">
 
 ### Resuming a Poll
 
