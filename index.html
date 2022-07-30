@@ -15,12 +15,10 @@
       const POLL_SIMPLE_DETECTION_PATTERN = /^!poll$/;
       const POLL_NUMBER_DETECTION_PATTERN = /^!poll \d$/;
       const POLL_QUOTED_PARAMETER_DETECTION_PATTERN =
-        /^!poll( "[^"]+")( "[^"]+")+$/;
-      const POLL_QUOTED_PARAMETER_TITLE_DETECTION_PATTERN =
-        /^!pollt( "[^"]+"){2}( "[^"]+")+$/;
+        /^!poll( "[^"]*")( "[^"]+"){2,}$/;
       const POLL_TITLE_DETECTION_PATTERN = /^!polltitle( "[^"]+")$/;
 
-      const POLL_QUOTED_PARAMETER_EXTRACTION_PATTERN = /"([^"]+)"/g;
+      const POLL_QUOTED_PARAMETER_EXTRACTION_PATTERN = /"([^"]*)"/g;
       const POLL_POSITION_DETECTION_PATTERN =
         /^!poll_tl$|!poll_tr$|!poll_br$|!poll_bl$/;
 
@@ -197,8 +195,7 @@
         if (
           (POLL_SIMPLE_DETECTION_PATTERN.test(message) ||
             POLL_NUMBER_DETECTION_PATTERN.test(message) ||
-            POLL_QUOTED_PARAMETER_DETECTION_PATTERN.test(message) ||
-            POLL_QUOTED_PARAMETER_TITLE_DETECTION_PATTERN.test(message)) &&
+            POLL_QUOTED_PARAMETER_DETECTION_PATTERN.test(message)) &&
           !pollState.visible &&
           !pollState.active
         ) {
@@ -220,27 +217,15 @@
               }
             }
           } else if (POLL_QUOTED_PARAMETER_DETECTION_PATTERN.test(message)) {
-            const options = message.match(
-              POLL_QUOTED_PARAMETER_EXTRACTION_PATTERN
-            );
+            const options = [
+              ...message.matchAll(POLL_QUOTED_PARAMETER_EXTRACTION_PATTERN),
+            ].map((match) => match[1]);
+
+            const title = options.shift();
+            pollState.title = title || "Poll";
 
             options.forEach((option, index) => {
-              const cleanOption = option.replaceAll('"', "");
-              pollState.options[index + 1] = cleanOption;
-            });
-          } else if (
-            POLL_QUOTED_PARAMETER_TITLE_DETECTION_PATTERN.test(message)
-          ) {
-            const options = message.match(
-              POLL_QUOTED_PARAMETER_EXTRACTION_PATTERN
-            );
-
-            const title = options.shift().replaceAll('"', "");
-            pollState.title = title;
-
-            options.forEach((option, index) => {
-              const cleanOption = option.replaceAll('"', "");
-              pollState.options[index + 1] = cleanOption;
+              pollState.options[index + 1] = option;
             });
           }
 
@@ -321,7 +306,6 @@
 
         client.connect();
         client.on("message", handlePollCommands);
-        client.on("message", handlePollVotes);
         client.on("message", handlePollVotes);
       }
 
