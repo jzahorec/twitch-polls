@@ -82,11 +82,19 @@
         const titleElement = document.getElementById("poll-title");
         titleElement.innerHTML = pollState.title;
 
-        const voteCount = Object.values(pollState.userVotes).filter(
-          (vote) => vote !== 0
-        ).length;
+        const userVotesClean = Object.entries(pollState.userVotes).reduce(
+          (result, [user, vote]) => {
+            if (vote !== "0") {
+              result[user] = vote;
+            }
+            return result;
+          },
+          {}
+        );
 
-        const pointsObject = Object.values(pollState.userVotes).reduce(
+        const voteCount = Object.values(userVotesClean).length;
+
+        const pointsObject = Object.values(userVotesClean).reduce(
           (result, userVote) => {
             result[userVote]
               ? (result[userVote] = result[userVote] + 1)
@@ -117,9 +125,12 @@
           let winningOptions = [];
           let winningPoints = 0;
           Object.entries(pointsObject).forEach(([option, points]) => {
-            if (points >= winningPoints) {
+            if (points == winningPoints) {
               winningPoints = points;
               winningOptions.push(option);
+            } else if (points > winningPoints) {
+              winningPoints = points;
+              winningOptions = [option];
             }
           });
 
