@@ -4,6 +4,9 @@
   "description": "A Twitch polling tool bot and poll visualization overlay for custom polls.",
   "main": "index.html",
   "type": "module",
+  "engines": {
+    "node": "16.x"
+  },
   "scripts": {
     "test": "mocha --require global-jsdom/register"
   },
