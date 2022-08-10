@@ -8,7 +8,7 @@
     "node": "16.x"
   },
   "scripts": {
-    "dev": "vite",
+    "start": "vite",
     "build": "vite build",
     "preview": "vite preview",
     "test": "mocha --require global-jsdom/register"
