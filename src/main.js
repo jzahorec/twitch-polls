@@ -155,7 +155,12 @@ function renderPositionChange(message) {
 }
 
 export function handleMessage(tags, message, pollState) {
-  if (isPollStart(message) && isPrivilegedUser(tags)) {
+  if (
+    isPollStart(message) &&
+    isPrivilegedUser(tags) &&
+    !pollState.visible &&
+    !pollState.active
+  ) {
     pollState = handlePollStart(message, pollState);
     renderInitial(pollState);
     return pollState;

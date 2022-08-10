@@ -41,7 +41,7 @@ const html = `
 describe("rendering", function () {
   let body;
 
-  describe("when receiving a simple poll command", function () {
+  describe("when receiving a simple poll start command", function () {
     before(function () {
       globalJsdom(html);
       body = within(document.body, queries);
@@ -71,7 +71,34 @@ describe("rendering", function () {
     });
   });
 
-  describe("when receiving a poll command with the number 3", function () {
+  describe("when receiving a simple poll start command when a poll is already visible", function () {
+    before(function () {
+      globalJsdom(html);
+      body = within(document.body, queries);
+
+      let newState = handleMessage(USER_1, "!poll 3", {
+        ...INITIAL_POLL_STATE,
+      });
+
+      newState = handleMessage(USER_1, "1", newState);
+      newState = handleMessage(USER_2, "2", newState);
+      newState = handleMessage(USER_3, "3", newState);
+      newState = handleMessage(USER_1, "!poll 9", newState);
+    });
+
+    it("does not render a new poll", function () {
+      expect(document.querySelectorAll(".option")).to.have.length(3);
+
+      const option1 = document.getElementById("option-1");
+      expect(option1).to.exist;
+      const option2 = document.getElementById("option-2");
+      expect(option2).to.exist;
+      const option3 = document.getElementById("option-3");
+      expect(option3).to.exist;
+    });
+  });
+
+  describe("when receiving a poll start command with the number 3", function () {
     before(function () {
       globalJsdom(html);
       body = within(document.body, queries);
@@ -106,7 +133,7 @@ describe("rendering", function () {
     });
   });
 
-  describe("when receiving a poll command with string options", function () {
+  describe("when receiving a poll start command with string options", function () {
     before(function () {
       globalJsdom(html);
       body = within(document.body, queries);
@@ -146,7 +173,7 @@ describe("rendering", function () {
     });
   });
 
-  describe("when receiving a poll command with string options but with empty title", function () {
+  describe("when receiving a poll start command with string options but with empty title", function () {
     before(function () {
       globalJsdom(html);
       body = within(document.body, queries);
@@ -406,6 +433,31 @@ describe("rendering", function () {
     });
 
     it("removes the poll from the screen", function () {
+      expect(document.querySelector(".poll")).to.be.empty;
+      expect(document.querySelector(".poll")).to.not.be.visible;
+    });
+  });
+
+  describe("when receiving a poll-altering command while no poll is visible", function () {
+    before(function () {
+      globalJsdom(html);
+      body = within(document.body, queries);
+
+      let state = {
+        active: false,
+        visible: false,
+        title: "Poll",
+        options: {},
+        userVotes: {},
+      };
+
+      state = handleMessage(USER_1, "!pollresume", state);
+      state = handleMessage(USER_1, "!pollstop", state);
+      state = handleMessage(USER_1, "!polltitle", state);
+      state = handleMessage(USER_1, "!pollend", state);
+    });
+
+    it("does not render anything", function () {
       expect(document.querySelector(".poll")).to.be.empty;
       expect(document.querySelector(".poll")).to.not.be.visible;
     });

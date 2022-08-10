@@ -180,6 +180,23 @@ describe("handlePollStart()", function () {
       expect(newState).to.equal(pollState);
     });
   });
+
+  describe("when a poll is currently active and visible", function () {
+    beforeEach(function () {
+      pollState = {
+        active: true,
+        visible: true,
+        title: "Poll",
+        options: {},
+        userVotes: {},
+      };
+    });
+
+    it("does not alter the current poll state", function () {
+      const newState = handlePollStart(`!poll`, pollState);
+      expect(newState).to.equal(pollState);
+    });
+  });
 });
 
 describe("handlePollStop()", function () {
