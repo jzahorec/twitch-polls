@@ -30,6 +30,14 @@ const INITIAL_POLL_STATE = {
   userVotes: {},
 };
 
+const DEBUG_POLL_STATE = {
+  active: true,
+  visible: true,
+  title: "Debug Mode Poll",
+  options: { 1: "Pizza", 2: "Jam", 3: "Coffee" },
+  userVotes: { user1: "1", user2: "3", user3: "3" },
+};
+
 const POSITION_MAP = {
   tl: "top-left",
   tr: "top-right",
@@ -202,6 +210,8 @@ export function setup() {
     positionClassName = POSITION_MAP[POSITION_CODE];
   }
 
+  const DEBUG = queryParameters.has("debug");
+
   document.querySelector(".container").classList.add(positionClassName);
 
   const CHANNEL_NAME = queryParameters.get("channel");
@@ -209,7 +219,15 @@ export function setup() {
     channels: [CHANNEL_NAME],
   });
 
-  let pollState = { ...INITIAL_POLL_STATE };
+  let pollState;
+
+  if (DEBUG) {
+    pollState = { ...DEBUG_POLL_STATE };
+    renderInitial(pollState);
+    renderUpdate(pollState);
+  } else {
+    pollState = { ...INITIAL_POLL_STATE };
+  }
 
   client.connect();
 
