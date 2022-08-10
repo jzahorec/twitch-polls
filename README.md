@@ -2,26 +2,63 @@
 
 A Twitch polling tool bot and poll visualization overlay for custom polls.
 
+## Setup
+
+### Running on glitch.com
+
+You can import this repository on glitch.com to automatically have it editable and hosted at the same time.
+
+1. Create an account on glitch.com
+2. On your dashboard look for "Import from Github"
+3. Supply the GitHub URL of this repository where it says "Paste URL here"
+4. Hit import and wait until your imported project is opened
+5. In the code editor's left pane select the `package.json` file
+6. Add a property to the configuration for glitch, so that it creates a production build when you close the editor
+
+```json
+  ...
+  "devDependencies": {
+    ...
+  },
+  // Add the following:
+  "glitch": {
+    "projectType": "generated_static"
+  }
+```
+
+### Running Locally
+
+With `npm start` you open up a dev server under `http://localhost:3000`.
+
+The tool runs in the browser `http://localhost:3000?channel=XYZ` in a browser and supports Hot Module Reloading, which means that any changes made in code are directly visible.
+
+### Running On a Web Server
+
+With `npm build` the bundle is built into the build folder which can then be served statically by any web server or service that serves static files.
+
 ## Integration into OBS
 
-TODO Describe how to run within a server.
+Use one of the choices above to set up the poll tool. Let's say you have it working under glitch.com with the url `https://rando-url-soup.glitch.me`. This is how you integrate it into OBS.
+
+Go to OBS and add a browser source. As the URL you input:
 
 ```
-file:///path/to/index.html
+https://rando-url-soup.glitch.me?channel=XYZ
 ```
 
-You also must append a parameter to the URL to specify your Twitch channel name.
+Substitute XYZ with your channel name.
 
-So, for example if your twitch channel name is XYZ:
-
-```
-file:///path/to/index.html?channel=XYZ
-```
-
-If you don't want the default position (top left) you can specify append another parameter to the URL to change this. The following URL puts the overlay into the bottom right:
+Make sure you adjust the values for width and height to:
 
 ```
-file:///path/to/index.html?channel=XYZ&positon=br
+width: 1920
+height: 1080
+```
+
+If you don't want the poll to be in the default position (top left) you can append another parameter to the URL to change this. The following URL puts the overlay into the bottom right:
+
+```
+https://rando-url-soup.glitch.me?channel=XYZ&positon=br
 ```
 
 Replace the `br` with any corner you like. These are the supported options:
@@ -81,3 +118,12 @@ This will resume the currently stopped, but still visible poll.
 `!pollend`
 
 This completely ends the poll and throws away the results. You can't recover the results after.
+
+## How Votes Work
+
+When a poll is active any number that is put into chat counts as a vote by that user. Following rules apply:
+
+- A number is only counted when it is a valid option number
+- A number is only counted when the message starts with that number (optionally followed by a space and arbitrary other text).
+- A user can change their vote to another number by inputting another valid number
+- With inputting 0 the user can withdraw their vote
