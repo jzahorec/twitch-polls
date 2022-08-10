@@ -127,3 +127,19 @@ When a poll is active any number that is put into chat counts as a vote by that 
 - A number is only counted when the message starts with that number (optionally followed by a space and arbitrary other text).
 - A user can change their vote to another number by inputting another valid number
 - With inputting 0 the user can withdraw their vote
+
+## Development
+
+Run `npm install` to install all necessary dev packages.
+
+For quick development start up the dev server with:
+
+`npm start`
+
+Use the debug mode by appending a debug paramter to the URL, to have a debug poll displayed at initial rendering.
+
+`https://localhost:3000?channel=XYZ&debug`
+
+You can make use of the automated tests. You can run them with.
+
+`npm test`
