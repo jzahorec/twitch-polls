@@ -31,7 +31,8 @@ export const isPollTitleChange = (message) =>
 export const isPositionChange = (message) =>
   POLL_POSITION_DETECTION_PATTERN.test(message);
 
-export const isPrivilegedUser = (tags) => Boolean(tags.badges?.broadcaster);
+export const isPrivilegedUser = (tags) =>
+  Boolean(tags.badges?.broadcaster) || tags.mod;
 
 export const isValidVote = (message, pollState) =>
   pollState.active &&
