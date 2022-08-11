@@ -4,6 +4,7 @@ import {
   POLL_NUMBER_DETECTION_PATTERN,
   POLL_QUOTED_PARAMETER_DETECTION_PATTERN,
   POLL_QUOTED_PARAMETER_EXTRACTION_PATTERN,
+  POLL_VOTE_EXTRACTION_PATTERN,
 } from "./messageCheckers.js";
 
 export function handlePollStart(message, pollState) {
@@ -82,7 +83,7 @@ export function handlePollTitleChange(message, pollState) {
 export function handlePollVote(message, username, pollState) {
   const newPollState = { ...pollState };
 
-  const voteNumber = message.match(/^(\d)$/g)?.[0];
+  const voteNumber = message.match(POLL_VOTE_EXTRACTION_PATTERN)?.[1];
   if (voteNumber && (newPollState.options[voteNumber] || voteNumber === "0")) {
     newPollState.userVotes[username] = voteNumber;
   }

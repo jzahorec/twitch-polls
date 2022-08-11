@@ -407,4 +407,70 @@ describe("handlePollVote()", function () {
       userVotes: { user1: "1", user2: "2" },
     });
   });
+
+  it("accepts poll votes with a number with a trailing space", function () {
+    const newState = handlePollVote("1 ", "user2", pollState);
+    expect(newState).to.eql({
+      active: false,
+      visible: true,
+      title: "Some Title",
+      options: { 1: " ", 2: " " },
+      userVotes: { user1: "1", user2: "1" },
+    });
+  });
+
+  it("accepts poll votes with a number with a leading space", function () {
+    const newState = handlePollVote(" 1", "user2", pollState);
+    expect(newState).to.eql({
+      active: false,
+      visible: true,
+      title: "Some Title",
+      options: { 1: " ", 2: " " },
+      userVotes: { user1: "1", user2: "1" },
+    });
+  });
+
+  it("accepts poll votes with a number both with a leading and trailing space", function () {
+    const newState = handlePollVote(" 1 ", "user2", pollState);
+    expect(newState).to.eql({
+      active: false,
+      visible: true,
+      title: "Some Title",
+      options: { 1: " ", 2: " " },
+      userVotes: { user1: "1", user2: "1" },
+    });
+  });
+
+  it("accepts poll votes with a number followed by space and another string", function () {
+    const newState = handlePollVote(" 1 LUL", "user2", pollState);
+    expect(newState).to.eql({
+      active: false,
+      visible: true,
+      title: "Some Title",
+      options: { 1: " ", 2: " " },
+      userVotes: { user1: "1", user2: "1" },
+    });
+  });
+
+  it("does not accept poll votes with a number followed by another number", function () {
+    const newState = handlePollVote("11", "user2", pollState);
+    expect(newState).to.eql({
+      active: false,
+      visible: true,
+      title: "Some Title",
+      options: { 1: " ", 2: " " },
+      userVotes: { user1: "1", user2: "2" },
+    });
+  });
+
+  it("does not accept poll votes with a number followed directly by another string", function () {
+    const newState = handlePollVote("1test", "user2", pollState);
+    expect(newState).to.eql({
+      active: false,
+      visible: true,
+      title: "Some Title",
+      options: { 1: " ", 2: " " },
+      userVotes: { user1: "1", user2: "2" },
+    });
+  });
 });
