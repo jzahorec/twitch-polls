@@ -281,8 +281,16 @@ describe("isPrivilegedUser()", function () {
     expect(isPrivilegedUser({ badges: { broadcaster: "1" } })).to.be.true;
   });
 
-  it("returns false if the user is not the broadcaster", function () {
+  it("returns true if the user is the mod", function () {
+    expect(isPrivilegedUser({ mod: true })).to.be.true;
+  });
+
+  it("returns false if the user is not the broadcaster and no mod info exists", function () {
     expect(isPrivilegedUser({ badges: {} })).to.be.false;
+  });
+
+  it("returns false if the user is not the broadcaster and mod is set to false", function () {
+    expect(isPrivilegedUser({ badges: {}, mod: false })).to.be.false;
   });
 });
 
