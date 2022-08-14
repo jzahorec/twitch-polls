@@ -2,35 +2,34 @@
 
 A Twitch polling tool bot and poll visualization overlay for custom polls.
 
-## Setup
+## Easy Setup
 
-### Running on glitch.com
+### Remix on glitch.com
 
-You can import this repository on glitch.com to automatically have it editable and hosted at the same time.
+If you already have a glitch account you can just remix the project.
 
-1. Create an account on glitch.com
-2. On your dashboard look for "Import from Github"
-3. Supply the GitHub URL of this repository where it says "Paste URL here"
-4. Hit import and wait until your imported project is opened
-5. In the code editor's left pane select the `package.json` file
-6. Add a property to the configuration for glitch, so that it creates a production build when you close the editor
+1. Go to [glitch.com](https://glitch.com) and log in with your account.
+2. Visit the [Twitch Polling Tool project](https://glitch.com/edit/#!/scented-fragrant-fender) on glitch.com.
+3. Hit the "Remix" button to remix (=duplicate) the project for yourself.
+4. Once the project is ready, you can click the `Share` button and copy the URL under `Live site`
+5. Take this new live URL (it should have a random 3-word string other than `scented-fragrant-fender` in it) and use it in your streaming software (OBS etc.) as a browser source.
+6. Make sure you follow the instructions under "Integration into OBS" below.
 
-```json
-  ...
-  "devDependencies": {
-    ...
-  },
-  // Add the following:
-  "glitch": {
-    "projectType": "generated_static"
-  }
-```
+## Advanced Setups
 
-### Running Locally
+### Running Local Server & Development
+
+Run `npm install` to install all necessary dev packages.
 
 With `npm start` you open up a dev server under `http://localhost:3000`.
 
-The tool runs in the browser `http://localhost:3000?channel=XYZ` in a browser and supports Hot Module Reloading, which means that any changes made in code are directly visible.
+Use the debug mode by appending a debug paramter to the URL, to have a debug poll displayed at initial rendering.
+
+`https://localhost:3000?channel=XYZ&debug`
+
+You can make use of the automated tests. You can run them with.
+
+`npm test`
 
 ### Running On a Web Server
 
@@ -127,19 +126,3 @@ When a poll is active any number that is put into chat counts as a vote by that 
 - A number is only counted when the message starts with that number (optionally followed by a space and arbitrary other text).
 - A user can change their vote to another number by inputting another valid number
 - With inputting 0 the user can withdraw their vote
-
-## Development
-
-Run `npm install` to install all necessary dev packages.
-
-For quick development start up the dev server with:
-
-`npm start`
-
-Use the debug mode by appending a debug paramter to the URL, to have a debug poll displayed at initial rendering.
-
-`https://localhost:3000?channel=XYZ&debug`
-
-You can make use of the automated tests. You can run them with.
-
-`npm test`
