@@ -57,7 +57,7 @@ height: 1080
 If you don't want the poll to be in the default position (top left) you can append another parameter to the URL to change this. The following URL puts the overlay into the bottom right:
 
 ```
-https://rando-url-soup.glitch.me?channel=XYZ&positon=br
+https://rando-url-soup.glitch.me?channel=XYZ&position=br
 ```
 
 Replace the `br` with any corner you like. These are the supported options:
@@ -83,7 +83,7 @@ There are different ways to start a poll:
 
 <img width="1920" alt="Bildschirmfoto 2022-07-30 um 22 08 42" src="https://user-images.githubusercontent.com/94025590/181994778-fa08a89b-84e2-494e-a918-37866663bbc5.png">
 
-`!poll "what kind of person are you? "cat person?" "dog person?" "why not both?"`: starts a poll with a title (the first text) and three named options and a title (everything after the first text). These option names will appear next to the option numbers.
+`!poll "what kind of person are you?" "cat person?" "dog person?" "why not both?"`: starts a poll with a title (the first text) and three named options and a title (everything after the first text). These option names will appear next to the option numbers.
 
 <img width="1920" alt="Bildschirmfoto 2022-07-30 um 22 09 59" src="https://user-images.githubusercontent.com/94025590/181994811-878d4d6b-5c9d-487e-b34f-63c2d6cff14c.png">
 
