@@ -2,50 +2,35 @@
 
 A Twitch polling tool bot and poll visualization overlay for custom polls.
 
-## Easy Setup
+## Getting Started
 
-### Remix on glitch.com
+The easiest way to get started is via [Glitch](glitch.com).
+If you don't mind dealing with running a web server, check out the [Advanced Setups](#advanced-setups) section to learn more.
 
-If you already have a glitch account you can just remix the project.
+### Remix on Glitch
+
+If you already have a Glitch account you can just remix the project.
 
 1. Go to [glitch.com](https://glitch.com) and log in with your account.
-2. Visit the [Twitch Polling Tool project](https://glitch.com/edit/#!/scented-fragrant-fender) on glitch.com.
-3. Hit the "Remix" button to remix (=duplicate) the project for yourself.
-4. Once the project is ready, you can click the `Share` button and copy the URL under `Live site`
-5. Take this new live URL (it should have a random 3-word string other than `scented-fragrant-fender` in it) and use it in your streaming software (OBS etc.) as a browser source.
-6. Make sure you follow the instructions under "Integration into OBS" below.
-
-## Advanced Setups
-
-### Running Local Server & Development
-
-Run `npm install` to install all necessary dev packages.
-
-With `npm start` you open up a dev server under `http://localhost:3000`.
-
-Use the debug mode by appending a debug paramter to the URL, to have a debug poll displayed at initial rendering.
-
-`https://localhost:3000?channel=XYZ&debug`
-
-You can make use of the automated tests. You can run them with.
-
-`npm test`
-
-### Running On a Web Server
-
-With `npm build` the bundle is built into the build folder which can then be served statically by any web server or service that serves static files.
+2. Visit the [Twitch Polling Tool project](https://glitch.com/edit/#!/scented-fragrant-fender) on Glitch.
+3. Hit the _Remix_ button to remix (=duplicate) the project for yourself.
+4. Once the project is ready, you can click the _Share_ button and copy the URL you can find under _Live site_
+5. Take this new live URL (it should have a random 3-word string in it) and use it in your streaming software (OBS etc.) as the URL for a browser source.
+6. Make sure you follow the instructions under [Integration into OBS](#integration-into-obs) below on how to use that URL.
 
 ## Integration into OBS
 
-Use one of the choices above to set up the poll tool. Let's say you have it working under glitch.com with the url `https://rando-url-soup.glitch.me`. This is how you integrate it into OBS.
+This guide describes OBS, but it should work almost identical in other streaming software.
 
-Go to OBS and add a browser source. As the URL you input:
+Take the URL under which the tool is running. In case you remixed on Glitch, the URL should be something similar to `https://rando-url-soup.glitch.me`. Here's how you integrate it into OBS.
+
+Add a browser source and as the URL you input:
 
 ```
 https://rando-url-soup.glitch.me?channel=XYZ
 ```
 
-Substitute XYZ with your channel name.
+Substitute `XYZ` with your channel name.
 
 Make sure you adjust the values for width and height to:
 
@@ -126,3 +111,29 @@ When a poll is active any number that is put into chat counts as a vote by that 
 - A number is only counted when the message starts with that number (optionally followed by a space and arbitrary other text).
 - A user can change their vote to another number by inputting another valid number
 - With inputting 0 the user can withdraw their vote
+
+## Advanced Setups
+
+### Running Local Development Server
+
+1. Fetch the codebase with git.
+2. Within the codebase folder run `npm install` to install all necessary dev packages.
+3. With `npm start` you open up a dev server under `http://localhost:3000`.
+4. Make sure you follow the instructions under [Integration into OBS](#integration-into-obs) on how to user that URL.
+
+### Running On a Web Server
+
+#### Downloading Pre-built Code
+
+You can download the pre-built code from the GitHub repository directly. The `build` folder should contain all the files that need to be served from a web server.
+
+Go to _Releases_ and pick the latest version and download the source code under _Assets_. Take the source code from the `build` folder and serve it from a server.
+
+Make sure you follow the instructions under [Integration into OBS](#integration-into-obs) on how to user that URL.
+
+#### Building the Code Yourself
+
+1. Fetch the codebase with git.
+2. Within the codebase folder run `npm install` to install all necessary dev packages.
+3. With `npm run build` the code is built into the `build` folder, which can then be served by any web server or service that serves static files.
+4. Make sure you follow the instructions under [Integration into OBS](#integration-into-obs) on how to user that URL.
