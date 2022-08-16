@@ -12,7 +12,7 @@ If you don't mind dealing with running a web server, check out the [Advanced Set
 If you already have a Glitch account you can just remix the project.
 
 1. Go to [glitch.com](https://glitch.com) and log in with your account.
-2. Visit the [Twitch Polling Tool project](https://glitch.com/edit/#!/scented-fragrant-fender) on Glitch.
+2. Visit the [Twitch Polling Tool project](https://glitch.com/edit/#!/twitch-polls) on Glitch.
 3. Hit the _Remix_ button to remix (=duplicate) the project for yourself.
 4. Once the project is ready, you can click the _Share_ button and copy the URL you can find under _Live site_
 5. Take this new live URL (it should have a random 3-word string in it) and use it in your streaming software (OBS etc.) as the URL for a browser source.
