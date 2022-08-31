@@ -18,6 +18,13 @@ If you already have a Glitch account you can just remix the project.
 5. Take this new live URL (it should have a random 3-word string in it) and use it in your streaming software (OBS etc.) as the URL for a browser source.
 6. Make sure you follow the instructions under [Integration into OBS](#integration-into-obs) below on how to use that URL.
 
+### Where do I start with changes to the code?
+
+**Be aware** that anything inside the `build` folder is automatically generated code that shouldn't be edited.
+
+- `style.css`: If you want to make some design changes the top level `style.css` file is the right place.
+- `src/main.js`: If you want to dive into the code and make some changes to the logic of the polls `src/main.js` is the starting point.
+
 ## Integration into OBS
 
 This guide describes OBS, but it should work almost identical in other streaming software.
